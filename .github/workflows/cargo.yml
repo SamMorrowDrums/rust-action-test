@@ -4,23 +4,24 @@ on:
   push:
 
 jobs:
-  rust_latest:
+  build_and_test:
     name: Rust project - latest
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.operating-system }}
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain:
+          - stable
+          - beta
+          - nightly
+        operating-system:
+          - "ubuntu-latest"
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
         with:
-          toolchain: stable
+          toolchain: ${{ matrix.toolchain }}
       - run: cargo build --verbose
       - run: cargo test --verbose
-  rust_nightly:
-    name: Rust project - nightly
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: nightly
-      - run: cargo build --verbose
-      - run: cargo test --verbose
+  
