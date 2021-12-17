@@ -12,7 +12,8 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-      - run: cargo build --release --all-features
+      - run: cargo build --verbose
+      - run: cargo test --verbose
   rust_nightly:
     name: Rust project - nightly
     runs-on: ubuntu-latest
@@ -21,4 +22,5 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: nightly
-      - run: cargo build --release --all-features
+      - run: cargo build --verbose
+      - run: cargo test --verbose
