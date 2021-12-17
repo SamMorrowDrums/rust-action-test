@@ -1,0 +1,24 @@
+name: Cargo Build & Test
+
+on:
+  push:
+
+jobs:
+  rust_latest:
+    name: Rust project - latest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - run: cargo build --release --all-features
+  rust_nightly:
+    name: Rust project - nightly
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+      - run: cargo build --release --all-features
